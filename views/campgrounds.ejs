@@ -1,0 +1,8 @@
+<h1>Campgrounds:</h1>
+
+<% for (var i = 0; i < campgrounds.length; ++i) { %>
+    <div>
+        <h4><%= campgrounds[i]["name"] %></h4>
+        <img src="<%= campgrounds[i]['image'] %>">
+    </div>
+<% } %>
