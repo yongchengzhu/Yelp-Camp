@@ -12,6 +12,8 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Add basic styled form.
 - [x] Add a more beautiful header. (Jumbotron)
 - [x] Make campgrounds display in a grid.
+- [x] Add a navbar to all templates.
+- [x] Style the new campground form.
 
 # Pages
 ### Landing Page:
@@ -23,7 +25,7 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 * List the image for each campgrounds.
 * Hyperlink to 'Create New Campground' page.
 
-#### Create New Campground Page:
+### Create New Campground Page:
 * Allow user to input campground name and campground image link.
 * Redirect back to 'Campgrounds' page.
  
