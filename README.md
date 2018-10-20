@@ -7,7 +7,7 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Create header and footer partials.
 - [x] Add in Bootstrap. (3.3.7)
 - [x] Setup new campground POST route.
-- [x] Add in body=parser.
+- [x] Add in body-parser.
 - [x] Setup route to show form.
 - [x] Add basic styled form.
 - [x] Add a more beautiful header. (Jumbotron)
@@ -17,6 +17,9 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Install and Configure Mongoose.
 - [x] Setup Campground Model.
 - [x] Use Campground Model inside our routes.
+- [x] Add description to the Campground Model.
+- [x] Drop the current collection and create new data with 'description'.
+- [x] Add the a 'show' route.
 
 # Pages 
 ### Landing Page:
