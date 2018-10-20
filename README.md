@@ -34,6 +34,9 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 ### Create New Campground Page:
 * Allow user to input campground name and campground image link.
 * Redirect back to 'Campgrounds' page.
+
+### Detail Page:
+* Show details about selected campground.
  
 # Problems Encountered
 * Cannot res.send() and res.redirect() at the same time. Must use one or the other.
