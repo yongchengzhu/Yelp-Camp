@@ -1,7 +1,7 @@
 # Yelp Camp
 A project taught by Colt Steele's Web Development Bootcamp course.
 
-# Completed List
+# Complete List
 - [x] Add Landing Page.
 - [x] Add Campgrounds Page listing all campgrounds.
 - [x] Create header and footer partials.
@@ -14,8 +14,11 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Make campgrounds display in a grid.
 - [x] Add a navbar to all templates.
 - [x] Style the new campground form.
+- [x] Install and Configure Mongoose.
+- [x] Setup Campground Model.
+- [x] Use Campground Model inside our routes.
 
-# Pages
+# Pages 
 ### Landing Page:
 * Welcome message.
 * Hyperlink to 'Campgrounds' page.
