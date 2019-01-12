@@ -6,4 +6,9 @@
 
 <p><%= campground.description %></p>
 
+<!-- Note: to display comment, you need to populate it first in app.js. -->
+<% campground.comments.forEach(function(comment) { %>
+    <strong><%= comment.author %></strong> - <%= comment.text %><br>
+<% }); %>
+
 <% include partials/footer %>

@@ -1,7 +1,7 @@
 # Yelp Camp
 A project taught by Colt Steele's Web Development Bootcamp course.
 
-# Complete List
+# Progress List
 - [x] Add Landing Page.
 - [x] Add Campgrounds Page listing all campgrounds.
 - [x] Create header and footer partials.
@@ -20,23 +20,5 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Add description to the Campground Model.
 - [x] Drop the current collection and create new data with 'description'.
 - [x] Add the a 'show' route.
-
-# Pages 
-### Landing Page:
-* Welcome message.
-* Hyperlink to 'Campgrounds' page.
-
-### Campgrounds Page:
-* List the name of each campgrounds.
-* List the image for each campgrounds.
-* Hyperlink to 'Create New Campground' page.
-
-### Create New Campground Page:
-* Allow user to input campground name and campground image link.
-* Redirect back to 'Campgrounds' page.
-
-### Detail Page:
-* Show details about selected campground.
- 
-# Problems Encountered
-* Cannot res.send() and res.redirect() at the same time. Must use one or the other.
+- [x] Separated database schemas into modules.
+- [x] Started with comments.

@@ -3,62 +3,42 @@
 //-------------------------------------------
 
 var express    = require("express");
-var app        = express();
 var bodyParser = require("body-parser");
 var mongoose   = require("mongoose");
+var app        = express();
+
+//-------------------------------------------
+//  App Configurations
+//-------------------------------------------
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
 //-------------------------------------------
-//  Connect to MongoDB
+//  Database Configurations
 //-------------------------------------------
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true});
 
-//-------------------------------------------
-//  Schema Setup
-//-------------------------------------------
+var Campground = require("./models/campground.js");
 
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-//-------------------------------------------
-//  Temporary method to create new entries.
-//-------------------------------------------
-
-// Campground.create({
-//     name       : "Granite Hill",
-//     image      : "https://pixabay.com/get/e837b1072af4003ed1584d05fb1d4e97e07ee3d21cac104491f0c179a6e8bdbd_340.jpg",
-//     description: "This is a huge granite hill, no bathrooms, no water, beautiful granite!"
-// }, function(err, campground) {
-//     if (err)
-//     {
-//         console.log("Cannot create new campground:")
-//         console.log(err);
-//     }
-//     else
-//     {
-//         console.log("New campground is created:")
-//         console.log(campground);
-//     }
-// })
+//
+// Testing comments.
+//
+var seed = require("./seed.js");
+seed();
 
 //-------------------------------------------
 //  Routes
 //-------------------------------------------
 
-
 app.get("/", function(req, res) {
     res.render("landing");
 })
 
+//
 // Index Route: show all campgrounds.
+//
 app.get("/campgrounds", function(req, res) {
     Campground.find({}, function(err, allCampgrounds) {
         if (err)
@@ -73,7 +53,9 @@ app.get("/campgrounds", function(req, res) {
     });
 })
 
+//
 // Create Route: add new campground to database.
+//
 app.post("/campgrounds", function(req, res) {
     // Get data from form, and store them as an object into newCampground.
     var name          = req.body.name;
@@ -85,7 +67,6 @@ app.post("/campgrounds", function(req, res) {
         description: description
     };
     
-    // Create new Campground
     Campground.create(newCampground, function(err, campground) {
         if (err)
         {
@@ -100,17 +81,22 @@ app.post("/campgrounds", function(req, res) {
     });
 })
 
+//
 // New Route: show form to create a new campground.
+//
 app.get("/campgrounds/new", function(req, res) {
     res.render("new");
 })
 
+//
 // Show Route: show information for one campground.
-// * Important note - Do NOT place this above /campgrounds/new.
+//    - WARN: Do NOT place this route above '/campgrounds/new'.
+//
 app.get("/campgrounds/:id", function(req, res) {
-    var id = req.params.id;
-    
-    Campground.findById(id, function(err, foundCampground) {
+    // 
+    // Note: "comments" is in lowercase; referencing the 'key' inside a campground object.
+    // 
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
         if (err)
         {
             console.log("Cannot find Campground ID:");
