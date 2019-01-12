@@ -21,4 +21,4 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Drop the current collection and create new data with 'description'.
 - [x] Add the a 'show' route.
 - [x] Separated database schemas into modules.
-- [x] Started with comments.
+- [x] Added comment section.

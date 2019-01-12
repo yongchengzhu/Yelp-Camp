@@ -1,26 +1,27 @@
-//-------------------------------------------
+//------------------------------------------------------------------------------
 //  Packages
-//-------------------------------------------
+//------------------------------------------------------------------------------
 
 var express    = require("express");
 var bodyParser = require("body-parser");
 var mongoose   = require("mongoose");
 var app        = express();
 
-//-------------------------------------------
+//------------------------------------------------------------------------------
 //  App Configurations
-//-------------------------------------------
+//------------------------------------------------------------------------------
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
-//-------------------------------------------
+//------------------------------------------------------------------------------
 //  Database Configurations
-//-------------------------------------------
+//------------------------------------------------------------------------------
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true});
 
 var Campground = require("./models/campground.js");
+var Comment = require("./models/comment.js");
 
 //
 // Testing comments.
@@ -28,10 +29,13 @@ var Campground = require("./models/campground.js");
 var seed = require("./seed.js");
 seed();
 
-//-------------------------------------------
-//  Routes
-//-------------------------------------------
+//------------------------------------------------------------------------------
+//  Campground Routes
+//------------------------------------------------------------------------------
 
+//
+// Landing Route: welcome page.
+//
 app.get("/", function(req, res) {
     res.render("landing");
 })
@@ -48,7 +52,7 @@ app.get("/campgrounds", function(req, res) {
         }
         else
         {
-            res.render("index", {campgrounds: allCampgrounds});
+            res.render("campgrounds/index", {campgrounds: allCampgrounds});
         }
     });
 })
@@ -79,14 +83,14 @@ app.post("/campgrounds", function(req, res) {
             res.redirect("/campgrounds");
         }
     });
-})
+});
 
 //
 // New Route: show form to create a new campground.
 //
 app.get("/campgrounds/new", function(req, res) {
-    res.render("new");
-})
+    res.render("campgrounds/new");
+});
 
 //
 // Show Route: show information for one campground.
@@ -104,14 +108,61 @@ app.get("/campgrounds/:id", function(req, res) {
         }
         else
         {
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
         }
     });
-})
+});
 
-//-------------------------------------------
+//------------------------------------------------------------------------------
+//  Comment Routes
+//------------------------------------------------------------------------------
+
+//
+// New Route: show form to create new comment for a campground.
+//
+app.get("/campgrounds/:id/comments/new", function(req, res) {
+    Campground.findById(req.params.id, function(err, foundCampground) {
+        if (err) {
+            res.redirect("/campgrounds");
+        }
+        else {
+            res.render("comments/new", {campground: foundCampground});
+        }
+    });
+});
+
+// 
+// Create Route: add new comment to database.
+// 
+app.post("/campgrounds/:id/comments", function(req, res) {
+    Campground.findById(req.params.id, function(err, foundCampground) {
+        if (err) {
+            res.redirect("/campgrounds");
+        }
+        else {
+            Comment.create(req.body.comment, function(err, createdComment) {
+                if (err) {
+                    res.redirect("/campgrounds");
+                }
+                else {
+                    foundCampground.comments.push(createdComment);
+                    foundCampground.save(function(err, savedCampground) {
+                        if (err) {
+                            res.redirect("/campgrounds");
+                        }
+                        else {
+                            res.redirect("/campgrounds/" + req.params.id);
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//------------------------------------------------------------------------------
 //  Cloud9 Port
-//-------------------------------------------
+//------------------------------------------------------------------------------
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Server is up!");
