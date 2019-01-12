@@ -2,10 +2,13 @@
 //  Packages
 //------------------------------------------------------------------------------
 
-var express    = require("express");
 var bodyParser = require("body-parser");
 var mongoose   = require("mongoose");
+var express    = require("express");
 var app        = express();
+
+var passport      = require("passport");
+var LocalStrategy = require("passport-local");
 
 //------------------------------------------------------------------------------
 //  App Configurations
@@ -23,6 +26,7 @@ mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true})
 
 var Campground = require("./models/campground.js");
 var Comment = require("./models/comment.js");
+var User = require("./models/user.js");
 
 //
 // Testing comments.

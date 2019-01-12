@@ -22,3 +22,4 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Add the a 'show' route.
 - [x] Separated database schemas into modules.
 - [x] Added comment section.
+- [] Implement user authentication.
