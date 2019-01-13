@@ -35,6 +35,30 @@ var seed = require("./seed.js");
 seed();
 
 //------------------------------------------------------------------------------
+//  Passport Configurations
+//------------------------------------------------------------------------------
+
+app.use(require("express-session")({
+    secret: "Imagine reading a post, but over the course of it the quality seems to deteriorate and it gets wose an wose, where the swenetence stwucture and gwammer rewerts to a pwoint of uttew non swence, an u jus dont wanna wead it anymwore (o´ω｀o) awd twa wol owdewl",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// 
+// Pass req.user to every route as middleware.
+// 
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+//------------------------------------------------------------------------------
 //  Campground Routes
 //------------------------------------------------------------------------------
 
@@ -125,7 +149,7 @@ app.get("/campgrounds/:id", function(req, res) {
 //
 // New Route: show form to create new comment for a campground.
 //
-app.get("/campgrounds/:id/comments/new", function(req, res) {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCampground) {
         if (err) {
             res.redirect("/campgrounds");
@@ -139,7 +163,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res) {
 // 
 // Create Route: add new comment to database.
 // 
-app.post("/campgrounds/:id/comments", function(req, res) {
+app.post("/campgrounds/:id/comments", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCampground) {
         if (err) {
             res.redirect("/campgrounds");
@@ -164,6 +188,68 @@ app.post("/campgrounds/:id/comments", function(req, res) {
         }
     });
 });
+
+//------------------------------------------------------------------------------
+//  Authentication Routes
+//------------------------------------------------------------------------------
+
+// 
+// Register: New Route
+// 
+app.get("/register", function(req, res) {
+    res.render("register");
+});
+
+// 
+// Register: Create route
+// 
+app.post("/register", function(req, res) {
+    User.register(new User({username: req.body.username}), req.body.password, function(err, createdUser) {
+        if (err) {
+            console.log(err);
+            res.render("register");
+        }
+        else {
+            passport.authenticate("local")(req, res, function() {
+                res.redirect("/campgrounds");
+            });
+        }
+    });
+});
+
+// 
+// Login: New route
+// 
+app.get("/login", function(req, res) {
+    res.render("login");
+});
+
+// 
+// Login: Create route
+// 
+app.post("/login", passport.authenticate("local", {successRedirect: "/campgrounds", failureRedirect: "/login"}), function(req, res) {
+    
+});
+
+// 
+// Logout Route
+// 
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
+// 
+// Middleware
+// 
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        res.redirect("/login");
+    }
+}
 
 //------------------------------------------------------------------------------
 //  Cloud9 Port
