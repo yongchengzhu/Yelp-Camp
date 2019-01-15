@@ -32,7 +32,10 @@ var User = require("./models/user.js");
 //
 var seed = require("./seed.js");
 
-seed();
+// 
+// Seed the database.
+// 
+// seed();
 
 //------------------------------------------------------------------------------
 //  Passport Configurations
