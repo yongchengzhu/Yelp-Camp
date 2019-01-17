@@ -24,11 +24,12 @@ router.get("/register", function(req, res) {
 router.post("/register", function(req, res) {
     User.register(new User({username: req.body.username}), req.body.password, function(err, createdUser) {
         if (err) {
-            console.log(err);
-            res.render("register");
+            req.flash("error", err.message);
+            res.redirect("/register");
         }
         else {
             passport.authenticate("local")(req, res, function() {
+                req.flash("success", "Successfully signed up. Wecome, " + createdUser.username + "!");
                 res.redirect("/campgrounds");
             });
         }

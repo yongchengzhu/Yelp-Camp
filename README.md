@@ -29,3 +29,5 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Implemented comment authorizations to edit, update, delete.
 - [x] Separated middlewares into modules.
 - [x] Installed connect-flash.
+- [x] Implemented flash messages.
+- [x] Implemented dynamic price.
