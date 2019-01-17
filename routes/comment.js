@@ -30,6 +30,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         else {
             Comment.create(req.body.comment, function(err, createdComment) {
                 if (err) {
+                    req.flash("error", "Something went wrong!");
                     res.redirect("/campgrounds");
                 }
                 else {
@@ -42,6 +43,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                             res.redirect("/campgrounds");
                         }
                         else {
+                            req.flash("success", "Successfully crearted comment!");
                             res.redirect("/campgrounds/" + req.params.id);
                         }
                     });

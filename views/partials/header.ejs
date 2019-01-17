@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
+        <!-- Navbar -->
         <nav class="navbar navbar-default">
             <div class="container-fluid"> <!--container-fluid means full-width container. -->
                 <div class="navbar-header">
@@ -24,5 +25,15 @@
                     </ul>
                 </div>
             </div>
-        </nav>        
+        </nav>       
+        <!-- Flash Message-->
+        <div class="container">
+            <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger" role="alert"><%= error %></div>
+            <% } %>
+            
+            <% if (success && success.length > 0) { %>
+            <div class="alert alert-success" role="alert"><%= success %></div>
+            <% } %>
+        </div>
         <!-- Contents -->

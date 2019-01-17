@@ -39,7 +39,7 @@ router.post("/register", function(req, res) {
 // Login: New route
 // 
 router.get("/login", function(req, res) {
-    res.render("login", {message: req.flash("error")});
+    res.render("login");
 });
 
 // 
@@ -54,19 +54,8 @@ router.post("/login", passport.authenticate("local", {successRedirect: "/campgro
 // 
 router.get("/logout", function(req, res) {
     req.logout();
+    req.flash("success", "You've logged out!");
     res.redirect("/campgrounds");
 });
-
-// 
-// Middleware
-// 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    else {
-        res.redirect("/login");
-    }
-}
 
 module.exports = router;

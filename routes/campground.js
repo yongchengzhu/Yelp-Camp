@@ -123,44 +123,4 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res) {
     });
 });
 
-// 
-// Middleware
-// 
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated()) {
-//         return next();
-//     }
-//     else {
-//         res.redirect("/login");
-//     }
-// }
-
-// function checkCampgroundOwnership (req, res, next) {
-//     // 
-//     // If user is logged in.
-//     // 
-//     if (req.isAuthenticated()) {
-//         Campground.findById(req.params.id, function(err, foundCampground) {
-//             if(err) {
-//                 res.redirect("back");
-//             }
-//             else {
-//                 // 
-//                 // If the user owns this campground.
-//                 //    * Check if campground.author.id matches user._id.
-//                 // 
-//                 if (foundCampground.author.id.equals(req.user._id)) {
-//                     return next();
-//                 }
-//                 else {
-//                     res.redirect("back");
-//                 };
-//             }
-//         });
-//     }
-//     else {
-//         res.redirect("back");
-//     }
-// }
-
 module.exports = router;
