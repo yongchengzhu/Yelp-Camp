@@ -39,7 +39,7 @@ router.post("/register", function(req, res) {
 // Login: New route
 // 
 router.get("/login", function(req, res) {
-    res.render("login");
+    res.render("login", {message: req.flash("error")});
 });
 
 // 

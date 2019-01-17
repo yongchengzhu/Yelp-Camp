@@ -27,3 +27,5 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Added edit and delete.
 - [x] Implemented campground authorizations to edit, update, delete.
 - [x] Implemented comment authorizations to edit, update, delete.
+- [x] Separated middlewares into modules.
+- [x] Installed connect-flash.
