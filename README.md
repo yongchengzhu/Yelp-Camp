@@ -26,3 +26,4 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Associated comment with user, and campground with user.
 - [x] Added edit and delete.
 - [x] Implemented campground authorizations to edit, update, delete.
+- [x] Implemented comment authorizations to edit, update, delete.
