@@ -50,6 +50,9 @@ router.post("/", isLoggedIn, function(req, res) {
     });
 });
 
+// 
+// Edit Route: show form to edit comment.
+// 
 router.get("/:comment_id/edit", function(req, res) {
     Comment.findById(req.params.comment_id, function(err, foundComment) {
         if (err) {
@@ -61,8 +64,25 @@ router.get("/:comment_id/edit", function(req, res) {
     });
 });
 
+// 
+// Update Route: save editted comment.
+// 
 router.put("/:comment_id", function(req, res) {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
+        if (err) {
+            res.redirect("back");
+        }
+        else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
+// 
+// Delete Route: delete a comment.
+// 
+router.delete("/:comment_id", function(req ,res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function(err, removedComment) {
         if (err) {
             res.redirect("back");
         }
