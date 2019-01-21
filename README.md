@@ -31,3 +31,4 @@ A project taught by Colt Steele's Web Development Bootcamp course.
 - [x] Installed connect-flash.
 - [x] Implemented flash messages.
 - [x] Implemented dynamic price.
+- [x] Implemented 'active' class to login, register, and home buttons. And better mobile/tablet menus.
